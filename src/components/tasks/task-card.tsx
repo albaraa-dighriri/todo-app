@@ -1,6 +1,16 @@
 import type { TaskItem } from '@/types/task';
+import { addSoftHyphensToLongWords } from '@/utils/text';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+
+function formatTaskTitleForDisplay(title: string) {
+    if (Platform.OS !== 'ios') {
+        return title;
+    }
+
+    // iOS does not reliably expose automatic visible hyphenation through Text props.
+    return addSoftHyphensToLongWords(title);
+}
 
 type TaskItemProps = {
     taskNumber?: number;
@@ -10,6 +20,8 @@ type TaskItemProps = {
     onDelete: () => void;
 }
 export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, onDelete }: TaskItemProps) {
+    const displayTitle = formatTaskTitleForDisplay(task.title);
+
     return (
         <View style={styles.container}>
             <Pressable
@@ -20,7 +32,14 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
             </Pressable>
 
             <View style={styles.taskContent}>
-                <Text style={[styles.title, task.completed && styles.titleCompleted]}>{taskNumber !== undefined && `${taskNumber}. `}{task.title}</Text>
+                <Text
+                    style={[styles.title, task.completed && styles.titleCompleted]}
+                    android_hyphenationFrequency="full"
+                    textBreakStrategy="balanced"
+                    lineBreakStrategyIOS="standard"
+                >
+                    {taskNumber !== undefined && `${taskNumber}. `}{displayTitle}
+                </Text>
 
                 <View style={styles.actionsContainer}>
                     <Pressable
@@ -46,6 +65,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
+        minWidth: 0,
         backgroundColor: '#2d2d2d',
         borderWidth: 1,
         borderColor: "#484848",
@@ -56,7 +76,8 @@ const styles = StyleSheet.create({
     },
 
     taskContent: {
-        flexShrink: 1,
+        flex: 1,
+        minWidth: 0,
         gap: 24,
     },
 
@@ -76,10 +97,12 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        flex: 1,
+        flexShrink: 1,
+        minWidth: 0,
         color: "white",
         fontSize: 18,
         fontWeight: "500",
+        lineHeight: 24,
     },
     titleCompleted: {
         color: "#595959",
