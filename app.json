@@ -9,7 +9,7 @@
     "userInterfaceStyle": "dark",
     "ios": {
       "icon": "./assets/app.icon",
-      "bundleIdentifier": "com.anonymous.todoapp"
+      "bundleIdentifier": "com.albaraadighriri.todoapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +19,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.todoapp"
+      "package": "com.albaraadighriri.todoapp"
     },
     "web": {
       "output": "static",
@@ -31,10 +31,9 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#212121",
-          "android": {
-            "image": "./assets/images/splash-icon.png",
-            "imageWidth": 76
-          }
+          "image": "./assets/images/splash-icon.png",
+          "resizeMode": "contain",
+          "imageWidth": 100
         }
       ]
     ],
