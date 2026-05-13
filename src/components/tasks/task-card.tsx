@@ -4,12 +4,14 @@ import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 function formatTaskTitleForDisplay(title: string) {
-    if (Platform.OS !== 'ios') {
-        return title;
+    // iOS only - React Native does not give us a prop to enable hyphenation on iOS, so we insert break points manually.
+    if (Platform.OS === 'ios') {
+        return addSoftHyphensToLongWords(title);
     }
-
-    // iOS does not reliably expose automatic visible hyphenation through Text props.
-    return addSoftHyphensToLongWords(title);
+    
+    // For Android, we can return the title as-is and let the platform handle it.
+    // Android handles hyphenation natively via android_hyphenationFrequency="full" on the Text component.
+    return title;
 }
 
 type TaskItemProps = {
