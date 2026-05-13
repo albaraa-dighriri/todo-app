@@ -1,14 +1,12 @@
+import AddTaskButton from "@/components/tasks/add-task-button";
 import TaskCard from "@/components/tasks/task-card";
 import TaskFormModal from "@/components/tasks/task-form-modal";
 import { useSettingsStore } from "@/store/use-settings-store";
 import { useTaskStore } from "@/store/use-task-store";
 import { TaskItem } from "@/types/task";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { useCallback, useState } from "react";
-import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import Sortable from "react-native-sortables";
-
-const addButtonBottomOffset = Platform.OS === 'android' ? 30 : 100;
 
 type TaskFormModalState = {
   visible: boolean;
@@ -124,8 +122,7 @@ export default function TasksScreen() {
         </ScrollView>
       )}
 
-      <Pressable
-        style={styles.addButton}
+      <AddTaskButton
         onPress={() =>
           setTaskFormModalState({
             visible: true,
@@ -136,9 +133,7 @@ export default function TasksScreen() {
             placeholder: "Add a new task",
           })
         }
-      >
-        <FontAwesome6 name="plus" size={20} color="white" />
-      </Pressable>
+      />
 
       <TaskFormModal
         visible={taskFormModalState?.visible ?? false}
@@ -179,19 +174,5 @@ const styles = StyleSheet.create({
   tasksContentContainer: {
     paddingTop: 16,
     paddingBottom: 120,
-  },
-  addButton: {
-    position: "absolute",
-    bottom: addButtonBottomOffset,
-    right: 24,
-    height: 56,
-    width: 56,
-    backgroundColor: "#303030",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 24,
-    borderWidth: 1,
-    borderColor: "#484848",
-    boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.4)",
   },
 });

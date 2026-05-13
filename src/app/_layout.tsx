@@ -1,7 +1,18 @@
+import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
+
+const tabStyle = isLiquidGlassAvailable()
+  ? {}
+  : {
+      backgroundColor: '#303030',
+      indicatorColor: '#212121',
+      rippleColor: 'white',
+      disableTransparentOnScrollEdge: true,
+      shadowColor: '#555555',
+    };
 
 export default function RootLayout() {
   return (
@@ -10,13 +21,9 @@ export default function RootLayout() {
 
       <KeyboardProvider>
         <NativeTabs
-          backgroundColor={'#303030'}
-          indicatorColor={'#212121'}
-          rippleColor={"white"}
+          {...tabStyle}
           tintColor={'white'}
           labelStyle={{ selected: { color: 'white' } }}
-          disableTransparentOnScrollEdge={true}
-          shadowColor='#555555'
         >
           <NativeTabs.Trigger name="tasks">
             <NativeTabs.Trigger.Label>Tasks</NativeTabs.Trigger.Label>
