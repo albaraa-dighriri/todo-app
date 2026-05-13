@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     right: 24,
     height: 56,
     width: 56,
-    borderRadius: 28,
+    borderRadius: 24,
   },
   glassPressable: {
     flex: 1,
