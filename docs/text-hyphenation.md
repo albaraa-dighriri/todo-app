@@ -136,3 +136,24 @@ decides whether to use them based on the actual available width at paint time.
 
 That is why the same string produces different results in different card widths —
 the string is identical, only the box width changes.
+
+---
+
+## Native patch — iOS < 26
+
+On iOS < 26, the soft hyphen character (`\u00AD`) inserted in the word, but the `-` is not rendered. React Native (Fabric) uses `NSLayoutManager` internally and never sets its
+`hyphenationFactor` property, which is what tells CoreText to draw the dash.
+
+The fix is a small Objective-C file that swizzles `NSLayoutManager.addTextContainer:`
+to set `hyphenationFactor = 1.0` at the moment React Native creates its layout manager.
+
+The file lives at `patches/ios/NSLayoutManager+Hyphenation.m` and must be manually
+added to the Xcode target because the `ios/` folder is gitignored.
+
+**After any `npx expo prebuild --platform ios` (which regenerates the `ios/` folder):**
+
+1. Copy `patches/ios/NSLayoutManager+Hyphenation.m` into `ios/Doit/`
+2. Open `ios/Doit.xcworkspace` in Xcode
+3. Right-click the `Doit` folder → **Add Files to "Doit"**
+4. Select the file → make sure **"Add to target: Doit"** is checked → **Add**
+5. Rebuild with `npx expo run:ios`

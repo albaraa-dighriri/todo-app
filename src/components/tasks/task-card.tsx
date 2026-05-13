@@ -38,7 +38,6 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
                     style={[styles.title, task.completed && styles.titleCompleted]}
                     android_hyphenationFrequency="full"
                     textBreakStrategy="balanced"
-                    lineBreakStrategyIOS="standard"
                 >
                     {taskNumber !== undefined && `${taskNumber}. `}{displayTitle}
                 </Text>
