@@ -1,9 +1,8 @@
-// Patches NSLayoutManager to enable soft hyphen character (`\u00AD`) rendering as a visible "-" on all iOS versions (iOS < 26).
+// Enables automatic hyphenation for all React Native text on iOS.
 //
-// React Native (Fabric) uses NSLayoutManager to render text. NSLayoutManager has
-// a hyphenationFactor property (0.0 = off, 1.0 = on) that must be > 0 for
-// CoreText to render \u00AD as a visible "-" when a word wraps at that position.
-// React Native never sets this, so older iOS silently drops the visible dash.
+// React Native does not expose iOS's hyphenation API as a prop (unlike Android).
+// This patch sets hyphenationFactor = 1.0 on NSLayoutManager, which tells CoreText
+// to use its built-in dictionary to find the best break point and render a visible "-".
 
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>

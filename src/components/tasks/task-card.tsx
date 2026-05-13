@@ -1,18 +1,6 @@
 import type { TaskItem } from '@/types/task';
-import { addSoftHyphensToLongWords } from '@/utils/text';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
-
-function formatTaskTitleForDisplay(title: string) {
-    // iOS only - React Native does not give us a prop to enable hyphenation on iOS, so we insert break points manually.
-    if (Platform.OS === 'ios') {
-        return addSoftHyphensToLongWords(title);
-    }
-    
-    // For Android, we can return the title as-is and let the platform handle it.
-    // Android handles hyphenation natively via android_hyphenationFrequency="full" on the Text component.
-    return title;
-}
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type TaskItemProps = {
     taskNumber?: number;
@@ -22,7 +10,6 @@ type TaskItemProps = {
     onDelete: () => void;
 }
 export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, onDelete }: TaskItemProps) {
-    const displayTitle = formatTaskTitleForDisplay(task.title);
 
     return (
         <View style={styles.container}>
@@ -39,7 +26,7 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
                     android_hyphenationFrequency="full"
                     textBreakStrategy="balanced"
                 >
-                    {taskNumber !== undefined && `${taskNumber}. `}{displayTitle}
+                    {taskNumber !== undefined && `${taskNumber}. `}{task.title}
                 </Text>
 
                 <View style={styles.actionsContainer}>
