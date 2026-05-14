@@ -33,13 +33,7 @@ export default function SectionCard({
 }: SectionCardProps) {
     return (
         <AppCard
-            style={[
-                styles.container,
-                !isLiquidGlassAvailable() && {
-                    borderWidth: 1,
-                    borderColor,
-                }
-            ]}
+            style={[styles.container, !isLiquidGlassAvailable() && { borderWidth: 1, borderColor }]}
             color={backgroundColor}
             iosGlassEffectStyle={type === 'compact' ? 'regular' : 'clear'}
             iosIsInteractive
