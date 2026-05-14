@@ -4,23 +4,23 @@ import { StyleSheet } from "react-native";
 import NormalAppButton from "./private/normal-app-button";
 
 
-export default function AppButton({ style, color, iosGlassEffectStyle, iosIsInteractive, ...props }: AppButtonProps) {
+export default function AppButton({ style, color, disabled, iosGlassEffectStyle, iosIsInteractive, ...props }: AppButtonProps) {
     if (isLiquidGlassAvailable()) {
         return (
             <GlassView
                 style={style}
                 tintColor={color}
-                glassEffectStyle={iosGlassEffectStyle}
+                glassEffectStyle={iosGlassEffectStyle ?? "regular"}
                 isInteractive={iosIsInteractive}
             >
                 {/* 
                 absoluteFill makes the pressable fill the entire GlassView.
                 Otherwise it shrinks to its content, leaving the edges untouchable and children uncentered 
                 */}
-                <NormalAppButton style={StyleSheet.absoluteFill} {...props} />
+                <NormalAppButton style={StyleSheet.absoluteFill} disabled={disabled} {...props} />
             </GlassView>
         );
     }
 
-    return <NormalAppButton style={style} color={color} {...props} />
+    return <NormalAppButton style={style} color={color} disabled={disabled} {...props} />
 }

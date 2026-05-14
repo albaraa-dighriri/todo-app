@@ -1,6 +1,8 @@
+import AppButton from '@/components/ui/app-button';
 import { useTaskStore } from '@/store/use-task-store';
+import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import ConfirmModal from './confirm-modal';
 import SectionCard from './section-card';
 
@@ -26,13 +28,22 @@ function DangerZoneButton({
     onPress: () => void
 }) {
     return (
-        <Pressable
-            style={[styles.button, disabled && styles.buttonDisabled]}
-            onPress={onPress}
-            disabled={disabled}>
+        <AppButton
+            style={[
+                styles.button,
+                disabled && styles.buttonDisabled,
+                !isLiquidGlassAvailable() && {
+                    borderWidth: 1,
+                    borderColor: "#7A3B3B",
+                },
+            ]}
+            disabled={disabled}
+            color="#442626"
+            iosIsInteractive={!disabled} // disable glass press effect when button is disabled
+            onPress={onPress}>
             <Text style={styles.buttonText}>{title}</Text>
             <Text style={styles.buttonHintText}>{hintText}</Text>
-        </Pressable>
+        </AppButton>
     )
 }
 
@@ -135,12 +146,9 @@ const styles = StyleSheet.create({
         gap: 12
     },
     button: {
-        paddingHorizontal: 16,
-        paddingVertical: 14,
+        height: 64,
+        width: '100%',
         borderRadius: 16,
-        backgroundColor: "#442626",
-        borderWidth: 1,
-        borderColor: "#7A3B3B",
         gap: 4,
     },
     buttonDisabled: {
