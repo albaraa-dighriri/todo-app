@@ -1,6 +1,7 @@
 import type { TaskItem } from '@/types/task';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import AppButton from '@/components/ui/app-button';
 
 type TaskItemProps = {
     taskNumber?: number;
@@ -30,19 +31,25 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
                 </Text>
 
                 <View style={styles.actionsContainer}>
-                    <Pressable
-                        style={[styles.actionButton, styles.editButton]}
+                    <AppButton
+                        style={styles.actionButton}
+                        color="#3e3311"
+                        iosGlassEffectStyle="clear"
+                        iosIsInteractive
                         onPress={onEdit}
                     >
                         <FontAwesome6 name="edit" size={16} color="#d4c158" />
-                    </Pressable>
+                    </AppButton>
 
-                    <Pressable
-                        style={[styles.actionButton, styles.deleteButton]}
+                    <AppButton
+                        style={styles.actionButton}
+                        color={"#3E1811"}
+                        iosGlassEffectStyle="clear"
+                        iosIsInteractive
                         onPress={onDelete}
                     >
                         <FontAwesome6 name="trash" size={16} color="#d45f58" />
-                    </Pressable>
+                    </AppButton>
                 </View>
             </View>
         </View>
@@ -102,20 +109,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 8,
     },
-
     actionButton: {
         height: 42,
         width: 42,
         borderRadius: 12,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    editButton: {
-        backgroundColor: "#3e3311",
-    },
-
-    deleteButton: {
-        backgroundColor: "#3E1811",
     },
 })

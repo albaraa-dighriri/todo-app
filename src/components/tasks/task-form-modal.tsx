@@ -1,5 +1,6 @@
+import AppButton from "@/components/ui/app-button";
 import ModalShell from "@/components/ui/modal-shell";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 type TaskFormModalProps = {
     visible: boolean;
@@ -66,19 +67,25 @@ export default function TaskFormModal({
             )}
 
             <View style={styles.actionButtonsContainer}>
-                <Pressable
-                    style={[styles.actionButton, styles.cancelButton]}
+                <AppButton
+                    style={styles.actionButton}
+                    color="#3E1811"
+                    iosGlassEffectStyle="clear"
+                    iosIsInteractive
                     onPress={onClose}
                 >
                     <Text style={styles.cancelButtonText}>Cancel</Text>
-                </Pressable>
+                </AppButton>
 
-                <Pressable
-                    style={[styles.actionButton, styles.submitButton]}
+                <AppButton
+                    style={styles.actionButton}
+                    color="#133e11"
+                    iosGlassEffectStyle="clear"
+                    iosIsInteractive
                     onPress={handleSubmit}
                 >
                     <Text style={styles.submitButtonText}>Save</Text>
-                </Pressable>
+                </AppButton>
             </View>
         </ModalShell>
     );
@@ -120,21 +127,15 @@ const styles = StyleSheet.create({
     },
 
     actionButton: {
-        paddingHorizontal: 16,
-        paddingVertical: 8,
+        height: 35,
+        width: 70,
         borderRadius: 8,
     },
 
-    cancelButton: {
-        backgroundColor: "#3E1811",
-    },
     cancelButtonText: {
         color: '#e4a298',
     },
 
-    submitButton: {
-        backgroundColor: "#133e11",
-    },
     submitButtonText: {
         color: '#a1e7a1',
     },
