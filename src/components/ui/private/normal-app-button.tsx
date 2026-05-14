@@ -1,7 +1,7 @@
-import { Pressable, PressableProps, ViewStyle } from 'react-native';
+import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
 
 type NormalAppButtonProps = PressableProps & {
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     color?: string;
 }
 

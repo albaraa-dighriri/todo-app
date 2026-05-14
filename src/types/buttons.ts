@@ -1,8 +1,8 @@
 import { GlassEffectStyleConfig, GlassStyle } from "expo-glass-effect";
-import { ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 
 export type AppButtonProps = {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   color?: string;
   iosGlassEffectStyle?: GlassStyle | GlassEffectStyleConfig;
   iosIsInteractive?: boolean;
