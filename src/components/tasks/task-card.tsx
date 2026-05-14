@@ -1,7 +1,8 @@
 import AppButton from '@/components/ui/AppButton/app-button';
 import type { TaskItem } from '@/types/task';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { isLiquidGlassAvailable } from 'expo-glass-effect';
+import { StyleSheet, Text, View } from 'react-native';
 
 type TaskItemProps = {
     taskNumber?: number;
@@ -14,12 +15,20 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
 
     return (
         <View style={styles.container}>
-            <Pressable
-                style={[styles.checkbox, task.completed && styles.checkboxCompleted]}
+            <AppButton
+                style={[styles.checkbox,
+                !isLiquidGlassAvailable() && {
+                    borderWidth: 1,
+                    borderColor: task.completed ? 'white' : '#484848',
+                }
+                ]}
+                color={task.completed ? "white" : "#212121"}
+                iosGlassEffectStyle="clear"
+                iosIsInteractive
                 onPress={() => onToggleCompleted()}
             >
                 {task.completed && <FontAwesome5 name="check" size={12} color="black" />}
-            </Pressable>
+            </AppButton>
 
             <View style={styles.taskContent}>
                 <Text
@@ -79,16 +88,7 @@ const styles = StyleSheet.create({
     checkbox: {
         height: 24,
         width: 24,
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: '#484848',
         borderRadius: 10,
-        backgroundColor: "#212121",
-    },
-    checkboxCompleted: {
-        backgroundColor: "white",
-        borderColor: "white",
     },
 
     title: {
