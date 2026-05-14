@@ -1,7 +1,7 @@
+import AppButton from '@/components/ui/AppButton/app-button';
 import type { TaskItem } from '@/types/task';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import AppButton from '@/components/ui/app-button';
 
 type TaskItemProps = {
     taskNumber?: number;

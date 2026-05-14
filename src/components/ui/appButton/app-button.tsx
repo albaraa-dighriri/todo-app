@@ -1,5 +1,5 @@
 import { AppButtonProps } from "@/types/buttons";
-import NormalAppButton from "./private/normal-app-button";
+import NormalAppButton from "../private/Button/normal-app-button";
 
 export default function AppButton({ style, color, iosGlassEffectStyle, iosIsInteractive, ...props }: AppButtonProps) {
     return (

@@ -1,7 +1,7 @@
 import { AppButtonProps } from "@/types/buttons";
 import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 import { StyleSheet } from "react-native";
-import NormalAppButton from "./private/normal-app-button";
+import NormalAppButton from "../private/Button/normal-app-button";
 
 
 export default function AppButton({ style, color, disabled, iosGlassEffectStyle, iosIsInteractive, ...props }: AppButtonProps) {

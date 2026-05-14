@@ -1,4 +1,4 @@
-import AppButton from "@/components/ui/app-button";
+import AppButton from "@/components/ui/AppButton/app-button";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { Platform, StyleSheet } from "react-native";

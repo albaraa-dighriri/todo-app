@@ -1,4 +1,4 @@
-import AppButton from '@/components/ui/app-button';
+import AppButton from '@/components/ui/AppButton/app-button';
 import { useTaskStore } from '@/store/use-task-store';
 import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { useState } from 'react';
@@ -128,7 +128,6 @@ export default function DangerZoneSection() {
                 visible={confirmModalState?.visible ?? false}
                 title={confirmModalState?.title ?? ""}
                 message={confirmModalState?.message ?? ""}
-                destructive
                 confirmLabel={confirmModalState?.confirmLabel ?? ""}
                 onClose={handleCloseConfirmModal}
                 onConfirm={() => {
