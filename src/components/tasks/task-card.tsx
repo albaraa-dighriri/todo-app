@@ -1,4 +1,5 @@
 import AppButton from '@/components/ui/AppButton/app-button';
+import AppCard from '@/components/ui/AppCard/app-card';
 import type { TaskItem } from '@/types/task';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { isLiquidGlassAvailable } from 'expo-glass-effect';
@@ -14,7 +15,18 @@ type TaskItemProps = {
 export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, onDelete }: TaskItemProps) {
 
     return (
-        <View style={styles.container}>
+        <AppCard
+            style={[
+                styles.container,
+                !isLiquidGlassAvailable() && {
+                    borderWidth: 1,
+                    borderColor: "#484848",
+                }
+            ]}
+            color="#2d2d2d"
+            iosGlassEffectStyle="clear"
+            iosIsInteractive
+        >
             <AppButton
                 style={[styles.checkbox,
                 !isLiquidGlassAvailable() && {
@@ -23,7 +35,6 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
                 }
                 ]}
                 color={task.completed ? "white" : "#212121"}
-                iosGlassEffectStyle="clear"
                 iosIsInteractive
                 onPress={() => onToggleCompleted()}
             >
@@ -61,7 +72,7 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
                     </AppButton>
                 </View>
             </View>
-        </View>
+        </AppCard>
     )
 }
 
@@ -70,9 +81,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         minWidth: 0,
-        backgroundColor: '#2d2d2d',
-        borderWidth: 1,
-        borderColor: "#484848",
         paddingHorizontal: 16,
         paddingVertical: 24,
         borderRadius: 12,

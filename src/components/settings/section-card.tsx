@@ -1,8 +1,10 @@
+import AppCard from '@/components/ui/AppCard/app-card'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import React, { ReactNode } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 type SectionCardProps = {
-    size?: 'default' | 'compact'
+    type?: 'default' | 'compact'
 
     backgroundColor?: string
     borderColor?: string
@@ -16,7 +18,7 @@ type SectionCardProps = {
     children: ReactNode
 }
 export default function SectionCard({
-    size = 'default',
+    type = 'default',
 
     backgroundColor = "#262626",
     borderColor = "#484848",
@@ -30,13 +32,24 @@ export default function SectionCard({
     children
 }: SectionCardProps) {
     return (
-        <View style={[styles.container, { backgroundColor, borderColor }]}>
+        <AppCard
+            style={[
+                styles.container,
+                !isLiquidGlassAvailable() && {
+                    borderWidth: 1,
+                    borderColor,
+                }
+            ]}
+            color={backgroundColor}
+            iosGlassEffectStyle={type === 'compact' ? 'regular' : 'clear'}
+            iosIsInteractive
+        >
             <View style={styles.textContainer}>
-                <Text style={[{ color: titleColor }, size === 'default' ? styles.title : styles.titleCompact]}>{title}</Text>
-                <Text style={[{ color: descriptionColor }, size === 'default' ? styles.description : styles.descriptionCompact]}>{description}</Text>
+                <Text style={[{ color: titleColor }, type === 'default' ? styles.title : styles.titleCompact]}>{title}</Text>
+                <Text style={[{ color: descriptionColor }, type === 'default' ? styles.description : styles.descriptionCompact]}>{description}</Text>
             </View>
             {children}
-        </View>
+        </AppCard>
     )
 }
 
@@ -44,7 +57,6 @@ const styles = StyleSheet.create({
     container: {
         padding: 16,
         borderRadius: 16,
-        borderWidth: 1,
         gap: 16,
     },
 

@@ -46,7 +46,7 @@ export default function LayoutSection() {
             description="Choose how tasks are displayed.">
             <>
                 <SectionCard
-                    size="compact"
+                    type="compact"
                     title="Numbering"
                     description="Show a number next to each task to track their order.">
                     <View style={styles.optionsRow}>
@@ -67,7 +67,7 @@ export default function LayoutSection() {
                 </SectionCard>
 
                 <SectionCard
-                    size="compact"
+                    type="compact"
                     title="Columns"
                     description="Choose how many columns tasks are displayed in.">
                     <View style={styles.optionsRow}>
