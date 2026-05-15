@@ -13,7 +13,7 @@ type SettingsStore = {
 
 export const useSettingsStore = create<SettingsStore>()(persist((set) => ({
     showTaskNumbers: 'none',
-    tasksGridColumns: 1,
+    tasksGridColumns: '1',
 
     setShowTaskNumbers: (taskNumbering) => set({ showTaskNumbers: taskNumbering }),
     setTasksGridColumns: (columns) => set({ tasksGridColumns: columns }),

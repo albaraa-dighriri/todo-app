@@ -1,26 +1,33 @@
-import ModalShell from "@/components/ui/modal-shell";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import AppModal from "@/components/ui/AppModal/app-modal";
+import { StyleSheet, Text, TextInput } from "react-native";
 
 type TaskFormModalProps = {
+    // Modal control props
     visible: boolean;
-    title: string;
     inputValue: string;
-    inputPlaceholder: string;
     showError: boolean;
     onChange: (text: string) => void;
     onChangeShowError: (showError: boolean) => void;
+
+    // Content
+    title: string;
+    inputPlaceholder: string;
+
+    // Action button props
     onClose: () => void;
     onSubmit: () => void;
 };
 
 export default function TaskFormModal({
     visible,
-    title,
     inputValue,
-    inputPlaceholder,
     showError,
     onChange,
     onChangeShowError,
+
+    title,
+    inputPlaceholder,
+
     onClose,
     onSubmit,
 }: TaskFormModalProps) {
@@ -43,12 +50,23 @@ export default function TaskFormModal({
     };
 
     return (
-        <ModalShell
+        <AppModal
+            // Modal control props
             visible={visible}
             keyboardAware
             onRequestClose={onClose}
+
+            title={title}
+
+            // Action button props
+            cancelColor="#3E1811"
+            cancelTextColor="#e4a298"
+            confirmLabel="Save"
+            confirmColor="#133e11"
+            confirmTextColor="#a1e7a1"
+            onCancel={onClose}
+            onConfirm={handleSubmit}
         >
-            <Text style={styles.title}>{title}</Text>
             <TextInput
                 style={[
                     styles.input,
@@ -64,36 +82,12 @@ export default function TaskFormModal({
             {showError && (
                 <Text style={styles.errorText}>Cannot be empty</Text>
             )}
-
-            <View style={styles.actionButtonsContainer}>
-                <Pressable
-                    style={[styles.actionButton, styles.cancelButton]}
-                    onPress={onClose}
-                >
-                    <Text style={styles.cancelButtonText}>Cancel</Text>
-                </Pressable>
-
-                <Pressable
-                    style={[styles.actionButton, styles.submitButton]}
-                    onPress={handleSubmit}
-                >
-                    <Text style={styles.submitButtonText}>Save</Text>
-                </Pressable>
-            </View>
-        </ModalShell>
+        </AppModal>
     );
 }
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "white",
-        textAlign: "center",
-    },
-
     input: {
-        marginTop: 24,
         backgroundColor: '#2d2d2d',
         borderWidth: 1,
         borderColor: "#484848",
@@ -110,32 +104,5 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 6,
         fontWeight: "500",
-    },
-
-    actionButtonsContainer: {
-        marginTop: 16,
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        gap: 8,
-    },
-
-    actionButton: {
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        borderRadius: 8,
-    },
-
-    cancelButton: {
-        backgroundColor: "#3E1811",
-    },
-    cancelButtonText: {
-        color: '#e4a298',
-    },
-
-    submitButton: {
-        backgroundColor: "#133e11",
-    },
-    submitButtonText: {
-        color: '#a1e7a1',
     },
 });

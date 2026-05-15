@@ -1,6 +1,9 @@
+import AppButton from '@/components/ui/AppButton/app-button';
+import AppCard from '@/components/ui/AppCard/app-card';
 import type { TaskItem } from '@/types/task';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { isLiquidGlassAvailable } from 'expo-glass-effect';
+import { StyleSheet, Text, View } from 'react-native';
 
 type TaskItemProps = {
     taskNumber?: number;
@@ -12,13 +15,31 @@ type TaskItemProps = {
 export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, onDelete }: TaskItemProps) {
 
     return (
-        <View style={styles.container}>
-            <Pressable
-                style={[styles.checkbox, task.completed && styles.checkboxCompleted]}
+        <AppCard
+            style={[
+                styles.container,
+                !isLiquidGlassAvailable() && {
+                    borderWidth: 1,
+                    borderColor: "#484848",
+                }
+            ]}
+            color="#2d2d2d"
+            iosGlassEffectStyle="clear"
+            iosIsInteractive
+        >
+            <AppButton
+                style={[styles.checkbox,
+                !isLiquidGlassAvailable() && {
+                    borderWidth: 1,
+                    borderColor: task.completed ? 'white' : '#484848',
+                }
+                ]}
+                color={task.completed ? "white" : "#212121"}
+                iosIsInteractive
                 onPress={() => onToggleCompleted()}
             >
                 {task.completed && <FontAwesome5 name="check" size={12} color="black" />}
-            </Pressable>
+            </AppButton>
 
             <View style={styles.taskContent}>
                 <Text
@@ -30,22 +51,28 @@ export default function TaskCard({ taskNumber, task, onToggleCompleted, onEdit, 
                 </Text>
 
                 <View style={styles.actionsContainer}>
-                    <Pressable
-                        style={[styles.actionButton, styles.editButton]}
+                    <AppButton
+                        style={styles.actionButton}
+                        color="#3e3311"
+                        iosGlassEffectStyle="clear"
+                        iosIsInteractive
                         onPress={onEdit}
                     >
                         <FontAwesome6 name="edit" size={16} color="#d4c158" />
-                    </Pressable>
+                    </AppButton>
 
-                    <Pressable
-                        style={[styles.actionButton, styles.deleteButton]}
+                    <AppButton
+                        style={styles.actionButton}
+                        color={"#3E1811"}
+                        iosGlassEffectStyle="clear"
+                        iosIsInteractive
                         onPress={onDelete}
                     >
                         <FontAwesome6 name="trash" size={16} color="#d45f58" />
-                    </Pressable>
+                    </AppButton>
                 </View>
             </View>
-        </View>
+        </AppCard>
     )
 }
 
@@ -54,9 +81,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         minWidth: 0,
-        backgroundColor: '#2d2d2d',
-        borderWidth: 1,
-        borderColor: "#484848",
         paddingHorizontal: 16,
         paddingVertical: 24,
         borderRadius: 12,
@@ -72,16 +96,7 @@ const styles = StyleSheet.create({
     checkbox: {
         height: 24,
         width: 24,
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: '#484848',
         borderRadius: 10,
-        backgroundColor: "#212121",
-    },
-    checkboxCompleted: {
-        backgroundColor: "white",
-        borderColor: "white",
     },
 
     title: {
@@ -102,20 +117,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 8,
     },
-
     actionButton: {
         height: 42,
         width: 42,
         borderRadius: 12,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    editButton: {
-        backgroundColor: "#3e3311",
-    },
-
-    deleteButton: {
-        backgroundColor: "#3E1811",
     },
 })
