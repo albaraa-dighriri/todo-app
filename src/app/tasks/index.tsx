@@ -108,7 +108,7 @@ export default function TasksScreen() {
           contentInsetAdjustmentBehavior="automatic"
         >
           <Sortable.Grid
-            columns={tasksGridColumns}
+            columns={parseInt(tasksGridColumns) || 1}
             data={tasks}
             keyExtractor={(item) => item.id}
             renderItem={({ index, item }) => {
