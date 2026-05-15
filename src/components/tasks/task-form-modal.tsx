@@ -84,6 +84,7 @@ export default function TaskFormModal({
                     onChangeText={handleInputChange}
                     placeholder={inputPlaceholder}
                     placeholderTextColor={showError && isLiquidGlassAvailable() ? "#d45e58da" : "#595959"}
+                    selectionColor={showError ? "#ff4444" : "#FFFFFF"}
                     autoFocus
                 />
             </AppCard>
