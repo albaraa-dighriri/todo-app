@@ -1,69 +1,61 @@
-import { StyleSheet, Text, View } from "react-native";
-import AppButton from "../../AppButton/app-button";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type ModalActionButtonsProps = {
     cancelLabel?: string;
     confirmLabel: string;
-    cancelColor?: string;
     cancelTextColor?: string;
-    confirmColor: string;
-    confirmTextColor: string;
+    confirmTextColor?: string;
     onCancel: () => void;
     onConfirm: () => void;
 };
 
 export default function ModalActionButtons({
-    cancelLabel = "Cancel",
     confirmLabel,
-    cancelColor = "#484848",
-    cancelTextColor = "#efefef",
-    confirmColor,
-    confirmTextColor,
-    onCancel,
+    cancelLabel = "Cancel",
+    confirmTextColor = "#FFFFFF",
+    cancelTextColor = "#FFFFFF",
     onConfirm,
+    onCancel,
 }: ModalActionButtonsProps) {
     return (
         <View style={styles.container}>
-            <AppButton
-                style={styles.button}
-                color={cancelColor}
-                iosGlassEffectStyle="clear"
-                iosIsInteractive
-                onPress={onCancel}
-            >
+            <View style={styles.divider} />
+
+            <Pressable style={styles.button} onPress={onConfirm}>
+                <Text style={[styles.buttonText, styles.confirmText, { color: confirmTextColor }]}>
+                    {confirmLabel}
+                </Text>
+            </Pressable>
+
+            <View style={styles.divider} />
+
+            <Pressable style={styles.button} onPress={onCancel}>
                 <Text style={[styles.buttonText, { color: cancelTextColor }]}>
                     {cancelLabel}
                 </Text>
-            </AppButton>
-
-            <AppButton
-                style={styles.button}
-                color={confirmColor}
-                iosGlassEffectStyle="clear"
-                iosIsInteractive
-                onPress={onConfirm}
-            >
-                <Text style={[styles.buttonText, { color: confirmTextColor }]}>
-                    {confirmLabel}
-                </Text>
-            </AppButton>
+            </Pressable>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        gap: 8,
+        flexDirection: "column",
+    },
+    divider: {
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: "rgba(255,255,255,0.15)",
     },
     button: {
-        height: 35,
-        width: 90,
-        borderRadius: 8,
+        height: 44,
+        alignItems: "center",
+        justifyContent: "center",
     },
     buttonText: {
-        fontWeight: "600",
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight: "400",
+    },
+    confirmText: {
+        fontWeight: "700",
     },
 });

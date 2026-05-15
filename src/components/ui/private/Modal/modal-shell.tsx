@@ -11,7 +11,7 @@ type ModalShellProps = {
     children: React.ReactNode;
 };
 
-export default function ModalShell({ visible, backgroundColor, keyboardAware, onRequestClose, children }: ModalShellProps) {
+export default function ModalShell({ visible, backgroundColor = "#212121", keyboardAware, onRequestClose, children }: ModalShellProps) {
     const ModalCard = (
         <Pressable
             style={[styles.modal, { backgroundColor }]}
@@ -65,8 +65,6 @@ const styles = StyleSheet.create({
 
     modal: {
         width: "80%",
-        paddingHorizontal: 16,
-        paddingVertical: 24,
         borderRadius: 12,
     },
 });

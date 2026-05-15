@@ -17,12 +17,10 @@ type AppModalProps = {
     children: ReactNode;
 
     // Action button props
-    cancelLabel?: string;
     confirmLabel: string;
-    cancelColor?: string;
     cancelTextColor?: string;
-    confirmColor: string;
-    confirmTextColor: string;
+    cancelLabel?: string;
+    confirmTextColor?: string;
     onCancel: () => void;
     onConfirm: () => void;
 };
@@ -32,7 +30,7 @@ export default function AppModal({
     keyboardAware,
     onRequestClose,
 
-    backgroundColor = "#212121",
+    backgroundColor,
 
     title,
     children,
@@ -41,9 +39,7 @@ export default function AppModal({
     onConfirm,
     cancelLabel,
     confirmLabel,
-    cancelColor,
     cancelTextColor,
-    confirmColor,
     confirmTextColor,
 }: AppModalProps) {
     return (
@@ -56,20 +52,16 @@ export default function AppModal({
             {/* Modal title */}
             <Text style={styles.title}>{title}</Text>
 
-            <View style={styles.titleSpacing} />
-
             {/* Modal content */}
-            {children}
-
-            <View style={styles.actionsSpacing} />
+            <View style={styles.modalContainer}>
+                {children}
+            </View>
 
             {/* Modal action buttons */}
             <ModalActionButtons
                 cancelLabel={cancelLabel}
                 confirmLabel={confirmLabel}
-                cancelColor={cancelColor}
                 cancelTextColor={cancelTextColor}
-                confirmColor={confirmColor}
                 confirmTextColor={confirmTextColor}
                 onCancel={onCancel}
                 onConfirm={onConfirm}
@@ -80,15 +72,17 @@ export default function AppModal({
 
 const styles = StyleSheet.create({
     title: {
+        paddingTop: 16,
+        paddingHorizontal: 24,
         fontSize: 18,
         fontWeight: "bold",
         color: "white",
         textAlign: "center",
     },
-    titleSpacing: {
-        height: 16,
-    },
-    actionsSpacing: {
-        height: 24,
+
+    modalContainer: {
+        paddingTop: 16,
+        paddingBottom: 32,
+        paddingHorizontal: 16,
     },
 });

@@ -12,7 +12,7 @@ type ModalShellProps = {
     children: React.ReactNode;
 };
 
-export default function ModalShell({ visible, backgroundColor, keyboardAware, onRequestClose, children }: ModalShellProps) {
+export default function ModalShell({ visible, backgroundColor = "#212121", keyboardAware, onRequestClose, children }: ModalShellProps) {
     const ModalCard = isLiquidGlassAvailable() ? (
         <GlassView
             style={styles.glassModal}
@@ -20,7 +20,6 @@ export default function ModalShell({ visible, backgroundColor, keyboardAware, on
             glassEffectStyle="clear"
             isInteractive>
             <Pressable
-                style={styles.glassModalContent}
                 onPress={(e) => e.stopPropagation()}
             >
                 {children}
@@ -81,16 +80,9 @@ const styles = StyleSheet.create({
         width: "80%",
         borderRadius: 12,
     },
-    glassModalContent: {
-        paddingHorizontal: 16,
-        paddingVertical: 24,
-    },
-    // --
 
     modal: {
         width: "80%",
-        paddingHorizontal: 16,
-        paddingVertical: 24,
         borderRadius: 12,
     },
 });

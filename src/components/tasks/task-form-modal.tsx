@@ -4,6 +4,7 @@ import { StyleSheet, Text, TextInput } from "react-native";
 type TaskFormModalProps = {
     // Modal control props
     visible: boolean;
+    mode: "add" | "edit";
     inputValue: string;
     showError: boolean;
     onChange: (text: string) => void;
@@ -20,6 +21,7 @@ type TaskFormModalProps = {
 
 export default function TaskFormModal({
     visible,
+    mode,
     inputValue,
     showError,
     onChange,
@@ -59,13 +61,10 @@ export default function TaskFormModal({
             title={title}
 
             // Action button props
-            cancelColor="#3E1811"
-            cancelTextColor="#e4a298"
-            confirmLabel="Save"
-            confirmColor="#133e11"
-            confirmTextColor="#a1e7a1"
-            onCancel={onClose}
+            confirmLabel={mode === "edit" ? "Update" : "Save"}
+            confirmTextColor={mode === "edit" ? "#F5C518" : "#34C759"}
             onConfirm={handleSubmit}
+            onCancel={onClose}
         >
             <TextInput
                 style={[

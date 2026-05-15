@@ -91,7 +91,7 @@ export default function DangerZoneSection() {
             >
                 <View style={styles.container}>
                     <DangerZoneButton
-                        title='Clear Completed Tasks'
+                        title='Clear All Completed Tasks'
                         hintText={completedTasksCount === 0
                             ? "No completed tasks to remove"
                             : `${completedTasksCount} completed task${completedTasksCount === 1 ? "" : "s"} ready to clear`}
@@ -100,7 +100,7 @@ export default function DangerZoneSection() {
                             setConfirmModalState({
                                 visible: true,
                                 action: "clearCompleted",
-                                title: "Clear Completed Tasks?",
+                                title: "Clear All Completed Tasks?",
                                 message: `This will remove ${completedTasksCount} completed task${completedTasksCount === 1 ? "" : "s"}.`,
                                 confirmLabel: "Clear",
                             })}

@@ -137,6 +137,7 @@ export default function TasksScreen() {
 
       <TaskFormModal
         visible={taskFormModalState?.visible ?? false}
+        mode={taskFormModalState?.mode ?? "add"}
         title={taskFormModalState?.title ?? ""}
         inputValue={taskFormModalState?.inputValue ?? ""}
         inputPlaceholder={taskFormModalState?.placeholder ?? ""}

@@ -23,9 +23,9 @@ export default function ConfirmModal({
     message,
 
     confirmLabel,
-    cancelLabel = "Cancel",
-    onClose,
+    cancelLabel,
     onConfirm,
+    onClose,
 }: ConfirmModalProps) {
     return (
         <AppModal
@@ -36,12 +36,11 @@ export default function ConfirmModal({
             title={title}
 
             // Action button props
-            cancelLabel={cancelLabel}
             confirmLabel={confirmLabel}
-            confirmColor={"#3E1811"}
-            confirmTextColor={"#e4a298"}
-            onCancel={onClose}
+            confirmTextColor="#FF3B30"
+            cancelLabel={cancelLabel}
             onConfirm={onConfirm}
+            onCancel={onClose}
         >
             <Text style={styles.message}>{message}</Text>
         </AppModal>
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 14,
         lineHeight: 20,
-        color: "#D7C1BE",
+        color: "#FFFFFF",
         textAlign: "center",
     },
 });
