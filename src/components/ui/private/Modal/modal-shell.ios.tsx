@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     glassModal: {
         width: "80%",
         borderRadius: 12,
-        overflow: "hidden",
     },
     glassModalContent: {
         paddingHorizontal: 16,
