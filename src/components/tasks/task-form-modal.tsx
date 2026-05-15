@@ -1,5 +1,7 @@
 import AppModal from "@/components/ui/AppModal/app-modal";
+import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { StyleSheet, Text, TextInput } from "react-native";
+import AppCard from "../ui/AppCard/app-card";
 
 type TaskFormModalProps = {
     // Modal control props
@@ -66,17 +68,25 @@ export default function TaskFormModal({
             onConfirm={handleSubmit}
             onCancel={onClose}
         >
-            <TextInput
+            <AppCard
                 style={[
-                    styles.input,
-                    showError && styles.inputError,
+                    styles.inputContainer,
+                    !isLiquidGlassAvailable() && {
+                        borderWidth: 1,
+                        borderColor: showError ? "#ff4444" : "#484848",
+                    }
                 ]}
-                value={inputValue}
-                onChangeText={handleInputChange}
-                placeholder={inputPlaceholder}
-                placeholderTextColor={"#595959"}
-                autoFocus
-            />
+                color={showError && isLiquidGlassAvailable() ? "#3d2222" : "#2d2d2d"}
+                iosIsInteractive>
+                <TextInput
+                    style={styles.input}
+                    value={inputValue}
+                    onChangeText={handleInputChange}
+                    placeholder={inputPlaceholder}
+                    placeholderTextColor={showError && isLiquidGlassAvailable() ? "#d45e58da" : "#595959"}
+                    autoFocus
+                />
+            </AppCard>
 
             {showError && (
                 <Text style={styles.errorText}>Cannot be empty</Text>
@@ -86,16 +96,13 @@ export default function TaskFormModal({
 }
 
 const styles = StyleSheet.create({
-    input: {
-        backgroundColor: '#2d2d2d',
-        borderWidth: 1,
-        borderColor: "#484848",
-        padding: 10,
+    inputContainer: {
         borderRadius: 8,
-        color: "white",
     },
-    inputError: {
-        borderColor: "#ff4444",
+
+    input: {
+        padding: 10,
+        color: "#FFFFFF"
     },
 
     errorText: {
