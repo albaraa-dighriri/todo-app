@@ -1,7 +1,8 @@
-import { Modal, Platform, Pressable, StyleSheet } from 'react-native';
+import { GlassView, isLiquidGlassAvailable } from 'expo-glass-effect';
+import { Modal, Pressable, StyleSheet } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
-const keyboardVerticalOffset = Platform.OS === 'android' ? 48 : 24;
+const keyboardVerticalOffset = 24;
 
 type ModalShellProps = {
     visible: boolean;
@@ -12,14 +13,27 @@ type ModalShellProps = {
 };
 
 export default function ModalShell({ visible, backgroundColor, keyboardAware, onRequestClose, children }: ModalShellProps) {
-    const ModalCard = (
+    const ModalCard = isLiquidGlassAvailable() ? (
+        <GlassView
+            style={styles.glassModal}
+            tintColor={backgroundColor}
+            glassEffectStyle="clear"
+            isInteractive>
+            <Pressable
+                style={styles.glassModalContent}
+                onPress={(e) => e.stopPropagation()}
+            >
+                {children}
+            </Pressable>
+        </GlassView>
+    ) : (
         <Pressable
             style={[styles.modal, { backgroundColor }]}
             onPress={(e) => e.stopPropagation()}
         >
             {children}
         </Pressable>
-    )
+    );
 
     return (
         <Modal
@@ -44,10 +58,9 @@ export default function ModalShell({ visible, backgroundColor, keyboardAware, on
                     ModalCard
                 )}
             </Pressable>
-        </Modal >
+        </Modal>
     );
 }
-
 
 const styles = StyleSheet.create({
     overlay: {
@@ -62,6 +75,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+
+    // Only for liquid glass devices
+    glassModal: {
+        width: "80%",
+        borderRadius: 12,
+        overflow: "hidden",
+    },
+    glassModalContent: {
+        paddingHorizontal: 16,
+        paddingVertical: 24,
+    },
+    // --
 
     modal: {
         width: "80%",

@@ -9,6 +9,9 @@ type AppModalProps = {
     keyboardAware?: boolean;
     onRequestClose: () => void;
 
+    // styling props
+    backgroundColor?: string;
+
     // Content
     title: string;
     children: ReactNode;
@@ -29,6 +32,8 @@ export default function AppModal({
     keyboardAware,
     onRequestClose,
 
+    backgroundColor = "#212121",
+
     title,
     children,
 
@@ -44,6 +49,7 @@ export default function AppModal({
     return (
         <ModalShell
             visible={visible}
+            backgroundColor={backgroundColor}
             keyboardAware={keyboardAware}
             onRequestClose={onRequestClose}
         >
